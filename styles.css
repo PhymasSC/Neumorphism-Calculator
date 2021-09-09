@@ -1,0 +1,196 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --background-hue: 185;
+    --background-saturation: 35%;
+    --background-lightness: 80%;
+    --background-theme: hsl(var(--background-hue), var(--background-saturation), var(--background-lightness));
+}
+
+::-webkit-scrollbar {
+    --background-hue: 185;
+    --background-saturation: 35%;
+    --background-lightness: 80%;
+    --background-theme: hsl(var(--background-hue), var(--background-saturation), var(--background-lightness));
+    --shadow-offset-x: .1em;
+    --shadow-offset-y: .1em;
+    --shadow-blurry: 2px;
+    --shadow-light-color: hsl(var(--background-hue), var(--background-saturation), calc(var(--background-lightness) + 10%));
+    --shadow-dark-color: hsl(var(--background-hue), var(--background-saturation), calc(var(--background-lightness) - 10%));
+
+    background-color: var(--background-theme);
+    border-radius: 1em;
+    height: .5em;
+    -webkit-box-shadow: inset var(--shadow-offset-x) var(--shadow-offset-y) var(--shadow-blurry) var(--shadow-light-color), inset calc(var(--shadow-offset-x) * -1) calc(var(--shadow-offset-y) * -1) var(--shadow-blurry) var(--shadow-dark-color)
+}
+
+::-webkit-scrollbar-thumb {
+    --background-hue: 185;
+    --background-saturation: 35%;
+    --background-lightness: 83%;
+    --background-theme: hsl(var(--background-hue), var(--background-saturation), var(--background-lightness));
+    --shadow-offset-x: .1em;
+    --shadow-offset-y: .1em;
+    --shadow-blurry: 2px;
+    --shadow-light-color: hsl(var(--background-hue), var(--background-saturation), calc(var(--background-lightness) + 10%));
+    --shadow-dark-color: hsl(var(--background-hue), var(--background-saturation), calc(var(--background-lightness) - 10%));
+    
+    border-radius: 1em;
+    background-color: var(--background-theme);
+    -webkit-box-shadow: var(--shadow-offset-x) var(--shadow-offset-y) var(--shadow-blurry) var(--shadow-dark-color), calc(var(--shadow-offset-x) * -1) calc(var(--shadow-offset-y) * -1) var(--shadow-blurry) var(--shadow-light-color)
+}
+
+body{
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+    font-family: 'Lato', sans-serif;
+    background-color: var(--background-theme);
+}
+
+.calculator {
+    --height: 80vh;
+    --width: 50vw;
+    --margin-vertical: calc( (100vh - var(--height)) / 2);
+    --margin-horizontal: calc( (100vw - var(--width)) / 2);
+    
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    min-width: var(--width);
+    height: var(--height);
+    min-height: 500px;
+    border-radius: 0.8rem;
+}
+
+.neumo-shadow {
+    --light-shadow-saturation: calc(var(--background-saturation) - 15%);
+    --light-shadow-lightness: calc(var(--background-lightness) - 15%);
+    --dark-shadow-saturation: 100%;
+    --dark-shadow-lightness: calc(var(--background-lightness) + 15%);
+}
+
+.screen {
+    overflow: auto;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    flex-direction: column;
+    color: #333;
+    padding: .5em 1em;
+    min-width: 20em;
+    max-width: 20em;
+    min-height: 25%;
+    height: 0;
+    margin:  1rem;
+    margin-top: 0;
+    border-radius: .8rem;
+    box-shadow:  .5em 1em 1.5em hsl(var(--background-hue), var(--light-shadow-saturation), var(--light-shadow-lightness), .9),
+                 -.5em -1em 1.5em hsl(var(--background-hue), var(--dark-shadow-saturation), var(--dark-shadow-lightness), .7);
+}
+
+.expression {
+    font-size: 1.5rem;
+    color: #888;
+}
+
+.result {
+    overflow: auto;
+    font-size: 1.75rem;
+    max-width: 100%;
+}
+
+.keypad {
+    margin: 1rem;
+    user-select:none;
+    border-radius: .8rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-content: center;
+    gap: 1em;
+    padding: 1.5em;
+    box-shadow: .5em .5em 1.5em hsl(var(--background-hue), var(--light-shadow-saturation), var(--light-shadow-lightness), .9),
+                 -.5em -.5em 1.5em hsl(var(--background-hue), var(--dark-shadow-saturation), var(--dark-shadow-lightness), .7);
+}
+
+.key{
+    --angle: 145deg;
+    --color: #000;
+    --light-hue: 0;
+    --light-saturation: 0%;
+    --light-lightness: 95%;
+    --dark-hue: 200;
+    --dark-saturation: 0%;
+    --dark-lightness: 86%;
+    --shadow-offset-x: .2em;
+    --shadow-offset-y: .2em;
+    --shadow-blurry: .5em;
+    --light-color: hsla(var(--light-hue), var(--light-saturation), var(--light-lightness));
+    --dark-color: hsla(var(--dark-hue), var(--dark-saturation), var(--dark-lightness));
+    --shadow-light-color: hsla(var(--light-hue), var(--light-saturation), 90% , .5);
+    --shadow-dark-color: hsla(var(--dark-hue), var(--dark-saturation), calc(var(--light-lightness) - 30%), .9);
+    --background: linear-gradient(var(--angle), var(--light-color), var(--dark-color));
+
+    justify-self: center;
+    width: 3em;
+    height: 3em;
+    line-height: 3em; /*Align text to center vertically*/
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 500;
+    border-radius: 1.5rem;
+    background: var(--background);
+    box-shadow:  var(--shadow-offset-x) var(--shadow-offset-y) var(--shadow-blurry) var(--shadow-dark-color),
+    calc(var(--shadow-offset-x) * -1) calc(var(--shadow-offset-y) * -1) var(--shadow-blurry) var(--shadow-light-color);
+    cursor: pointer;
+    color: var(--color);
+}
+
+[data-clear] {
+    width: 100%;
+    grid-column: 1/3;
+}
+.key:hover{
+    --dark-color: hsl( var(--dark-hue), var(--dark-saturation), calc(var(--dark-lightness) + 7%));
+    --background: var(--dark-color);
+}
+
+.key:active, .key.active {
+    box-shadow:  inset var(--shadow-offset-x) var(--shadow-offset-y) var(--shadow-blurry) var(--shadow-dark-color),
+    inset calc(var(--shadow-offset-x) * -1) calc(var(--shadow-offset-y) * -1) var(--shadow-blurry) var(--shadow-light-color);
+    --background: linear-gradient(var(--angle), var(--dark-color), var(--light-color));
+}
+
+.yellow {
+    --color: #FFF;
+    --light-hue: 40;
+    --light-saturation: 100%;
+    --light-lightness: 70%;
+    --dark-hue: 40;
+    --dark-saturation: 60%;
+    --dark-lightness: 50%;
+}
+
+.purple {
+    --color: hsl(0, 100%, 100%);
+    --light-hue: 270;
+    --light-saturation: 100%;
+    --light-lightness: 70%;
+    --dark-hue: 270;
+    --dark-saturation: 60%;
+    --dark-lightness: 50%;
+
+}
+
+.light {
+    --light-lightness: 85%;
+    --dark-lightness: 60%;
+    --background: linear-gradient( var(--angle), var(--light-color), var(--dark-color));
+}
+
